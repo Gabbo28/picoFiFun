@@ -1,6 +1,6 @@
 # PicoFiFun
 
-(**WIP**) Fault injection CTFs with Raspberry Pi pico, mainly for learning pico C SDK.
+(**WIP**) Fault injection CTFs with Raspberry Pi Pico, mainly for learning Pico C SDK.
 
 ## Setup
 
@@ -8,7 +8,7 @@
 
 The basic steps are the following:
 
-1. Clone the `pico-sdk` repository and submodules (`tinyusb`):  
+1. Clone the pico-sdk repository and submodules (tinyusb):  
     ```bash
     git clone -b master https://github.com/raspberrypi/pico-sdk.git
     cd pico-sdk
@@ -28,20 +28,20 @@ The basic steps are the following:
 
 4. For convenience, create a directory called `projects` in the same directory as `pico-sdk`, where you will copy-paste the `*_src` directory of each writeup.
 
-**Note**: `pico-sdk` uses `CMake` to create `Make` files. For a tidy setup, in each `*_src` directory (e.g. `glitch_src`) create a `build` directory where all such files will be created (`build` folders are already there sometimes).
+**Note**: pico-sdk uses CMake to create Make files. For a tidy setup, in each `*_src` directory (e.g. `glitch_src`) create a `build` directory where all such files will be created (`build` folders are already there sometimes).
 
 5. For compilation, enter the specific project's `build` directory and run the following:
     ```bash
     cmake ..
     make -j4 # change number of sim jobs accordingly
     ```
-    This will produce `.bin`, `.hex`, `.elf` and `.uf2` files.
+    This will produce .bin, .hex, .elf and .uf2 files.
 
 6. For easy loading of the firmware onto the Pico, I wired up a button to the reset pin (pin 30).  
 
 ![reset button](./imgs/reset_button.jpg)
-By pressing the reset + BOOTSEL buttons, then releasing the reset button, the Pico appears as USB storage device (BOOTSEL can be released then).  
-The `.uf2` file can be copied in the folder, then the Pico restarts and begins running the firmware.
+By pressing the "reset" + "BOOTSEL" buttons, then releasing the reset button, the Pico appears as USB storage device (BOOTSEL can be released then).  
+The .uf2 file can be copied in the folder, then the Pico restarts and begins running the firmware.
 
 ### Writeups
 
