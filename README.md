@@ -43,6 +43,31 @@ The basic steps are the following:
 By pressing the "reset" + "BOOTSEL" buttons, then releasing the reset button, the Pico appears as USB storage device (BOOTSEL can be released then).  
 The .uf2 file can be copied in the folder, then the Pico restarts and begins running the firmware.
 
-### Writeups
+## Target
+
+The target is an ATMEGA328P microcontroller (same as in old Arduino boards), here is the pinout.
+
+![atmega pinout](./imgs/atmega328-pinout.png)
+
+To keep the setting as simple and self-contained as possible I connected the following pins:
+
+- pin 7 (VCC) to Pico pin 40 (VBUS, ~5V)
+- pin 8 (GND) to Pico GND (this connection is used for glitching and will be interrupted) 
+- a 16 MHz crystal oscillator to pins 9 and 10, with two 22 pF capacitors to ground
+- pin 1 (RESET) to pin 7 (VCC, high)
+
+We want to read serial output from the target (pin 3, TXD) so we would need to connect:
+- pin 3 of the ATMEGA to Pico's pin 2 (UART0 RX, GP1)
+
+This is done via a voltage divider circuit (the three 1 KOhm resistors in serie from pin 3 to GND) to account for the fact that the ATMEGA operates at 5V and the Pico at 3,3V.
+
+![target stup](./imgs/target_setup.jpg)
+
+The glitch is performed interrupting the connection of the ground line by switching off and on a [2N7000 MOSFET](https://components101.com/mosfets/2n7000-n-channel-mosfet).  
+The source and drain pins of the MOSFET are connected to the ATMEGA's and Pico's GND respectively, while the gate pin is connected to Pico's pin 4 (GP2).
+
+![final setup](./imgs/final_setup.jpg)
+
+## Writeups
 
 - [Rhme2016-Fiesta](./rhme2016_fiesta)
